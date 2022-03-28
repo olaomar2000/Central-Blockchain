@@ -63,19 +63,19 @@ class blockChain extends block
     {
 
         if (count($this->chain) == 0) {
-            echo "done8";
+           // echo "done8";
             $previousHash = "0";
         } else {
             $previousHash = $this->getLatestBlock()->hash;
         }
 
         if ($previousHash != $block->header->previousHash) {
-            echo "done9";
+           // echo "done9";
             return False;
         }
 
         if (!$this->is_valid_proof($block, $proof)) {
-            echo "done10";
+            //echo "done10";
             return False;
         }
 
@@ -94,10 +94,10 @@ class blockChain extends block
 
     public function  is_valid_proof($block, $block_hash)
     {
-        echo "done11";
+        //echo "done11";
 
 
-        echo str_starts_with($block_hash, str_repeat('0', 1));
+        //echo str_starts_with($block_hash, str_repeat('0', 1));
         if (($block_hash == $block->calculateHash()) == "1") {
             if (str_starts_with($block_hash, str_repeat('0', 1))) {
                 return true;
@@ -109,16 +109,16 @@ class blockChain extends block
 
     public function proof_of_work($block)
     {
-        echo "done5";
+       // echo "done5";
        
-        echo $block->header->nonce;
+       // echo $block->header->nonce;
         $block->header->nonce =0;
         while (!str_starts_with($block->calculateHash(), str_repeat('0', 1))) {
             $block->header->nonce ++;
             
             $block->hash = $block->calculateHash();
         }
-        echo "done6";
+      //  echo "done6";
       
         return $block->hash;
     }
@@ -133,14 +133,14 @@ class blockChain extends block
  
     public function mine()
     {
-        echo "count";
-        echo count($this->chain);
+        //echo "count";
+       // echo count($this->chain);
              if (!$this->unconfirmed_transactions) {
-            echo "done1";
+          //  echo "done1";
             return False;
         }
         if (count($this->chain) == 0) {
-            echo "done2";
+           // echo "done2";
             $new_header = new Header(
                 1,
                 "0",
@@ -156,7 +156,7 @@ class blockChain extends block
                 $this->unconfirmed_transactions
             );
         } else {
-            echo "done3";
+           // echo "done3";
            // $last_block = $this->getLatestBlock();
             $new_header = new Header(
                 1,
@@ -172,7 +172,7 @@ class blockChain extends block
                 $this->unconfirmed_transactions
             );
         }
-        echo "done4";
+      //  echo "done4";
 
         $proof = $this->proof_of_work($new_block);
         $this->add_block($new_block, $proof);
